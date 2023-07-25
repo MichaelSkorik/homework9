@@ -1,52 +1,54 @@
-﻿int[,] PrintOld2DMassive(int[,] massive)
+﻿using System;
+
+class Program
 {
-    for (int i = 0; i < massive.GetLength(0); i++)
+    static void Main()
     {
-        for (int j = 0; j < massive.GetLength(1); j++)
+        // Размеры массива
+        int rows = 3;
+        int columns = 4;
+
+        // Инициализация генератора случайных чисел
+        Random random = new Random();
+
+        // Создание и заполнение двумерного массива случайными числами
+        int[,] array = new int[rows, columns];
+        for (int i = 0; i < rows; i++)
         {
-            Console.Write($"{massive[i,j]} \t");
-        }
-        Console.WriteLine();
-    }
-    return massive;
-}
-void PrintNew2DMassive(int[,] massive)
-{
-    for (int i = 0; i < massive.GetLength(0); i++)
-    {
-        for (int j = 0; j < massive.GetLength(1); j++)
-        {
-            if(i % 2 == 0 && j % 2 == 0)
+            for (int j = 0; j < columns; j++)
             {
-                massive[i, j] = massive[i, j] * massive[i, j];
+                array[i, j] = random.Next(1, 10); // Генерируем случайное число от 1 до 9
             }
-            Console.Write($"{massive[i,j]} \t");
         }
-        Console.WriteLine();
-    }
-}
-int[,] Create2DMassive(int rows, int columns,int min, int max)
-{
-    int[,] matrix = new int[rows, columns];
-    for (int i = 0; i < matrix.GetLength(0); i++)
-    {
-        for (int j = 0; j < matrix.GetLength(1); j++)
+
+        // Вывод созданного массива (для наглядности)
+        Console.WriteLine("Сгенерированный массив:");
+        for (int i = 0; i < rows; i++)
         {
-            matrix[i,j] = new Random().Next(min, max + 1);
+            for (int j = 0; j < columns; j++)
+            {
+                Console.Write(array[i, j] + " ");
+            }
+            Console.WriteLine();
         }
+
+        // Вычисление суммы элементов на главной диагонали и вывод каждого значения
+        int sumDiagonal = 0;
+        Console.Write("Сумма элементов главной диагонали: ");
+        for (int i = 0; i < Math.Min(rows, columns); i++)
+        {
+            int value = array[i, i];
+            sumDiagonal += value;
+            Console.Write(value);
+        }
+        for (int j = 0; j < Math.Min(rows, columns) - 1; j++)
+        {
+
+            Console.Write("+");
+        }
+        
+        Console.WriteLine();
+
+       Console.Write("= " + sumDiagonal);
     }
-    return matrix;
 }
-
-int GetInput (string text)
-{
-    Console.WriteLine(text);
-    return Convert.ToInt32(Console.ReadLine());
-}
-
-int m = GetInput("Введите количество строк массива: ");
-int n = GetInput("Введите количество столбцов массива: ");
-int[,] massive = Create2DMassive(m, n, 1, 9);
-PrintOld2DMassive(massive);
-Console.WriteLine("--------------------------");
-PrintNew2DMassive(massive);
