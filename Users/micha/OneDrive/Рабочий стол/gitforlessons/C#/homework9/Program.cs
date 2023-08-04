@@ -1,9 +1,15 @@
-﻿int GetFactorial(int N)
+﻿int GetSum(int N)
 {
     if (N == 1)
+    {
+        Console.Write("1");
         return 1;
-    
-    return N * GetFactorial(N - 1);
+    }
+    else
+    {
+        Console.Write(N + ",");
+    return GetSum(N - 1);
+    }
 }
 
 int Print(string text)
@@ -13,5 +19,5 @@ int Print(string text)
 }
 
 int N = Print("Enter number");
-int factorial = GetFactorial(N);
-Console.WriteLine($"Factorial of {N} is: {factorial}");
+Console.Write($"Числа от {N} до 0 -> ");
+GetSum(N);
